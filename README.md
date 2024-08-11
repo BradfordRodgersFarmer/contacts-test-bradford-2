@@ -16,6 +16,35 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Database
+ install wrangler
+
+## update wrangler.toml with
+#:schema node_modules/wrangler/config-schema.json
+name = "contacts-test"
+compatibility_date = "2024-08-06"
+pages_build_output_dir = ".vercel/output/static"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "contacts-test"
+database_id = "nonsense"
+
+## update env.d.ts with 
+interface CloudflareEnv {
+DB: D1Database;
+}
+
+interface ProcessEnv {
+[key: string]: string | undefined;
+DATABASE: D1Database;
+}
+
+## intialize database with 
+npx wrangler d1 execute contacts-test --local --file=testInserter.sql
+
+
 ## Cloudflare integration
 
 Besides the `dev` script mentioned above `c3` has added a few extra scripts that allow you to integrate the application with the [Cloudflare Pages](https://pages.cloudflare.com/) environment, these are:
