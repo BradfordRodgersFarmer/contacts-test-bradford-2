@@ -20,6 +20,7 @@
     "@nextui-org/link": "2.0.34",
     "@nextui-org/listbox": "2.1.25",
     "@nextui-org/navbar": "2.0.36",
+    "@nextui-org/react": "^2.4.6",
     "@nextui-org/snippet": "2.0.41",
     "@nextui-org/switch": "2.0.33",
     "@nextui-org/system": "2.2.5",
@@ -34,7 +35,8 @@
     "next-themes": "^0.2.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-hook-form": "^7.52.2"
+    "react-hook-form": "^7.52.2",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.13.2",

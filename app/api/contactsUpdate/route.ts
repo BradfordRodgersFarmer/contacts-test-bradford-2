@@ -9,16 +9,16 @@ export async function GET(request: NextRequest) {
     const email = searchParams.get("email")
     const phone = searchParams.get("phone")
     const id = searchParams.get("id")
-    // id does not exist throw error
+
     if (!id) {
         return NextResponse.json({message: 'id is required'}, {status: 500})
     }
-    // check to see if the contact exists in the database if not return an error
+
     const checkContact = await baseDb.prepare("SELECT * FROM contacts WHERE id = ?").bind(id).all();
     if (!checkContact.results.length) {
         return NextResponse.json({message: 'Contact does not exist'}, {status: 500})
     }
-    // check to see if the email already exists in the database if not insert the new contact other wise return an error
+
     const checkEmail = email ? await baseDb.prepare("SELECT * FROM contacts WHERE email = ?").bind(email).all() : null;
     const oldContact = checkContact.results[0];
     if (checkEmail.results.length && checkEmail.results[0].id !== id) {

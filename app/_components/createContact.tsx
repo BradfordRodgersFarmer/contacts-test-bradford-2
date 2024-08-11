@@ -3,11 +3,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Divider, useDisclosure} from "@nextui-org/react";
 import {PressEvent} from "@react-types/shared";
 import {ContactForm} from "@/app/_components/contactForm";
-
+import { useRouter } from 'next/navigation'
 export  const CreateContact = () => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState('');
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit: SubmitHandler<any> = async (data) => {
         setLoading(true);
@@ -16,11 +17,10 @@ export  const CreateContact = () => {
                 method: 'POST',
                 body: JSON.stringify(data),
             })
-            // close modal
-            console.log(response)
             if(response.ok) {
                 onOpenChange();
                 setLoading(false);
+                router.refresh();
             }
             else {
                 const body  = await response.json();

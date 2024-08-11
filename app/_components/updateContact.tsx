@@ -4,11 +4,12 @@ import {Button, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Divide
 import {PressEvent} from "@react-types/shared";
 import {Contact} from "@/utils/interfaces";
 import {ContactForm} from "@/app/_components/contactForm";
-
+import { useRouter } from 'next/navigation'
 export  const UpdateContact = (contact: Contact) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState('');
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm(
         {
             defaultValues: {
@@ -32,6 +33,7 @@ export  const UpdateContact = (contact: Contact) => {
             if(response.ok) {
                 onOpenChange();
                 setLoading(false);
+                router.refresh();
             }
             else {
                 const body  = await response.json();
